@@ -12,6 +12,7 @@ export async function getServerSideProps({ query }) {
     : `tanggal=${today}&${new URLSearchParams(query).toString()}`;
 
   const absen = await getAbsenSiswa(`${search}`);
+
   return {
     props: {
       absen,

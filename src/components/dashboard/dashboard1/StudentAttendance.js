@@ -18,11 +18,6 @@ import {
 import ThemeSelect from "./ThemeSelect";
 import DashboardCard from "../../baseCard/DashboardCard";
 
-import img1 from "../../../../assets/images/users/1.jpg";
-import img2 from "../../../../assets/images/users/2.jpg";
-import img3 from "../../../../assets/images/users/3.jpg";
-import img4 from "../../../../assets/images/users/4.jpg";
-import img5 from "../../../../assets/images/users/5.jpg";
 import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
 import SeachDataForm from "../../forms/SearchDataForm";
 import moment from "moment";

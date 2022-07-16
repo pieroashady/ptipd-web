@@ -31,7 +31,7 @@ function MyApp(props) {
     <CacheProvider value={emotionCache}>
       <NextNProgress />
       <Head>
-        <title>Flexy NextJs Starter kit page</title>
+        <title>PTIPD SMKN 5 Tangerang</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={Gettheme}>

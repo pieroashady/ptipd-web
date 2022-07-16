@@ -20,113 +20,128 @@ import CustomFormLabel from "../../src/components/forms/custom-elements/CustomFo
 
 import img1 from "../../assets/images/backgrounds/login-bg.svg";
 import LogoIcon from "../../src/layouts/logo/LogoIcon";
+import useLogin from "../../src/hooks/useLogin";
 
-const Login = () => (
-  <Grid container sx={{ height: "100vh", justifyContent: "center" }}>
-    <Grid
-      item
-      xs={12}
-      sm={12}
-      lg={6}
-      sx={{
-        background: (theme) =>
-          `${theme.palette.mode === "dark" ? "#1c1f25" : "#ffffff"}`,
-      }}
-    >
-      <Box
+const Login = () => {
+  const { loading, handleLogin } = useLogin();
+
+  return (
+    <Grid container sx={{ height: "100vh", justifyContent: "center" }}>
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        lg={6}
         sx={{
-          position: "relative",
+          background: (theme) =>
+            `${theme.palette.mode === "dark" ? "#1c1f25" : "#ffffff"}`,
         }}
       >
         <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
           sx={{
-            position: {
-              xs: "relative",
-              lg: "absolute",
-            },
-            height: { xs: "auto", lg: "100vh" },
-            right: { xs: "auto", lg: "-50px" },
-            margin: "0 auto",
+            position: "relative",
           }}
         >
-          <Image src={img1} alt="bg" maxWidth="812" />
-        </Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            sx={{
+              position: {
+                xs: "relative",
+                lg: "absolute",
+              },
+              height: { xs: "auto", lg: "100vh" },
+              right: { xs: "auto", lg: "-50px" },
+              margin: "0 auto",
+            }}
+          >
+            <Image src={img1} alt="bg" maxWidth="812" />
+          </Box>
 
-        <Box
-          sx={{
-            p: 4,
-            position: "absolute",
-            top: "0",
-          }}
-        >
-          <LogoIcon />
-        </Box>
-      </Box>
-    </Grid>
-    <Grid item xs={12} sm={8} lg={6} display="flex" alignItems="center">
-      <Grid container spacing={0} display="flex" justifyContent="center">
-        <Grid item xs={12} lg={9} xl={6}>
           <Box
             sx={{
               p: 4,
+              position: "absolute",
+              top: "0",
             }}
           >
-            <Typography fontWeight="700" variant="h3">
-              Selamat Datang di PTIPD TKJ SMKN 5
-            </Typography>
-            <Box display="flex" alignItems="center">
-              <Typography
-                color="textSecondary"
-                variant="h6"
-                fontWeight="500"
-                sx={{
-                  mr: 1,
-                }}
-              >
-                Silahkan login terlebih dahulu
-              </Typography>
-            </Box>
+            <LogoIcon />
+          </Box>
+        </Box>
+      </Grid>
+      <Grid item xs={12} sm={8} lg={6} display="flex" alignItems="center">
+        <Grid container spacing={0} display="flex" justifyContent="center">
+          <Grid item xs={12} lg={9} xl={6}>
             <Box
               sx={{
-                mt: 3,
+                p: 4,
               }}
             >
-              <CustomFormLabel htmlFor="username">Username</CustomFormLabel>
-              <CustomTextField id="username" variant="outlined" fullWidth />
-              <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
-              <CustomTextField
-                id="password"
-                type="password"
-                variant="outlined"
-                fullWidth
-                sx={{
-                  mb: 4,
-                }}
-              />
-
-              <NextLink href="/">
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  size="large"
-                  fullWidth
+              <Typography fontWeight="700" variant="h3">
+                Selamat Datang di PTIPD TKJ SMKN 5
+              </Typography>
+              <Box display="flex" alignItems="center">
+                <Typography
+                  color="textSecondary"
+                  variant="h6"
+                  fontWeight="500"
                   sx={{
-                    pt: "10px",
-                    pb: "10px",
+                    mr: 1,
                   }}
                 >
-                  Sign In
-                </Button>
-              </NextLink>
+                  Silahkan login terlebih dahulu
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  mt: 3,
+                }}
+              >
+                <form onSubmit={(e) => handleLogin(e)}>
+                  <CustomFormLabel htmlFor="username">Username</CustomFormLabel>
+                  <CustomTextField
+                    id="username"
+                    name="username"
+                    variant="outlined"
+                    fullWidth
+                  />
+                  <CustomFormLabel name="password" htmlFor="password">
+                    Password
+                  </CustomFormLabel>
+                  <CustomTextField
+                    id="password"
+                    type="password"
+                    variant="outlined"
+                    fullWidth
+                    sx={{
+                      mb: 4,
+                    }}
+                  />
+
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    size="large"
+                    type="submit"
+                    fullWidth
+                    sx={{
+                      pt: "10px",
+                      pb: "10px",
+                    }}
+                  >
+                    Login
+                  </Button>
+                </form>
+              </Box>
             </Box>
-          </Box>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
-  </Grid>
-);
+  );
+};
+
 Login.layout = "Blank";
+
 export default Login;
