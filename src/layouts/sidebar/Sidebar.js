@@ -21,6 +21,7 @@ import Menuitems from "./MenuItems";
 import SimpleBar from "simplebar-react";
 
 import { useRouter } from "next/router";
+import APP_CONFIG from "../../../app.config";
 
 const Sidebar = ({
   isMobileSidebarOpen,
@@ -48,6 +49,10 @@ const Sidebar = ({
       setOpen(index);
     }
   };
+
+  console.log(router.pathname);
+
+  if (location == APP_CONFIG.reservedPath) return <></>;
 
   const SidebarContent = (
     <SimpleBar style={{ height: "100%" }}>

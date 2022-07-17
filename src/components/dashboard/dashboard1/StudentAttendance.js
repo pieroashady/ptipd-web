@@ -21,10 +21,12 @@ import DashboardCard from "../../baseCard/DashboardCard";
 import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
 import SeachDataForm from "../../forms/SearchDataForm";
 import moment from "moment";
+import useAbsenList from "../../../hooks/useAbsenList";
+import { isEmpty } from "ramda";
 
 const StudentAttendance = ({ data }) => {
   const router = useRouter();
-
+  const { absen } = useAbsenList(data);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -39,9 +41,14 @@ const StudentAttendance = ({ data }) => {
 
   const keyPress = (e) => {
     if (e.key == "Enter") {
-      router.replace(`/dashboards/absen?q=${e.target.value}`);
+      if (e.target.value) {
+        return router.replace(`${router.pathname}?q=${e.target.value}`);
+      }
+      return router.replace(`${router.pathname}`);
     }
   };
+
+  if (!absen) return <></>;
 
   return (
     <DashboardCard
@@ -94,7 +101,7 @@ const StudentAttendance = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.data.map((absen) => (
+            {absen.data.map((absen) => (
               <TableRow key={absen.id}>
                 <TableCell>
                   <Typography variant="h6" fontWeight="600">

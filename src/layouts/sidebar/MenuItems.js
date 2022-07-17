@@ -6,6 +6,11 @@ const Menuitems = [
     href: "Dashboard",
   },
   {
+    title: "Scan Absen",
+    icon: "pie-chart",
+    href: "/dashboards/scan-absen",
+  },
+  {
     title: "Dashboard",
     icon: "pie-chart",
     href: "/dashboards/absen",

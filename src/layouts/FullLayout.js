@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import {
   experimentalStyled,
   useMediaQuery,
@@ -10,6 +11,7 @@ import Sidebar from "./sidebar/Sidebar";
 import Footer from "./footer/Footer";
 import Customizer from "./customizer/Customizer";
 import { useSelector } from "react-redux";
+import APP_CONFIG from "../../app.config";
 
 const MainWrapper = experimentalStyled("div")(() => ({
   display: "flex",
@@ -33,7 +35,10 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
 }));
 
 const FullLayout = ({ children }) => {
-  const [isSidebarOpen, setSidebarOpen] = React.useState(true);
+  const router = useRouter();
+  const [isSidebarOpen, setSidebarOpen] = React.useState(
+    router.pathname != APP_CONFIG.reservedPath
+  );
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const customizer = useSelector((state) => state.CustomizerReducer);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
@@ -47,6 +52,7 @@ const FullLayout = ({ children }) => {
         }}
         toggleSidebar={() => setSidebarOpen(!isSidebarOpen)}
         toggleMobileSidebar={() => setMobileSidebarOpen(true)}
+        showSidebar={router.pathname != APP_CONFIG.reservedPath}
       />
       <Sidebar
         isSidebardir={customizer.activeDir === "ltr" ? "left" : "right"}
