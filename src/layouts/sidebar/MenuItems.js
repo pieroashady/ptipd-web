@@ -5,11 +5,11 @@ const Menuitems = [
     icon: "mdi mdi-dots-horizontal",
     href: "Dashboard",
   },
-  {
-    title: "Scan Absen",
-    icon: "pie-chart",
-    href: "/dashboards/scan-absen",
-  },
+  // {
+  //   title: "Scan Absen",
+  //   icon: "pie-chart",
+  //   href: "/dashboards/scan-absen",
+  // },
   {
     title: "Dashboard",
     icon: "pie-chart",
