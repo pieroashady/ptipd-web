@@ -23,7 +23,7 @@ function useAbsenList(data) {
       const response = await getAbsenSiswa(search);
       setAbsen(response);
     }
-    setInterval(() => getAbsen(), 5000);
+    setInterval(() => getAbsen(), 7000);
   }, [router]);
 
   return {

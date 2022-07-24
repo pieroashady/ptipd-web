@@ -2,9 +2,14 @@ import React from "react";
 
 import FeatherIcon from "feather-icons-react";
 import { Button, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
+import useUpdate from "../../hooks/useUpdateData";
+import UpdateAbsenModal from "../modal/UpdateAbsenModal";
+import useHandleModal from "../../hooks/useHandleModal";
 
 const ThreeDotsMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
 
   function handleMenuClick(Val1) {
     console.log(Val1);
@@ -21,6 +26,12 @@ const ThreeDotsMenu = (props) => {
   const { data } = props;
   return (
     <>
+      <UpdateAbsenModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+        data={data}
+      />
       <IconButton
         aria-haspopup="true"
         onClick={handleClick}
@@ -36,7 +47,13 @@ const ThreeDotsMenu = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => handleMenuClick(data.id)}>Edit</MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleOpenModal("edit");
+          }}
+        >
+          Edit
+        </MenuItem>
         <MenuItem onClick={() => handleMenuClick(data.id)}>Hapus</MenuItem>
       </Menu>
     </>

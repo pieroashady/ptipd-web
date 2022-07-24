@@ -95,6 +95,9 @@ const StudentAttendance = ({ data }) => {
               <TableCell>
                 <Typography variant="h5">Jam Keluar</Typography>
               </TableCell>
+              <TableCell>
+                <Typography variant="h5">Status</Typography>
+              </TableCell>
               <TableCell align="center">
                 <Typography variant="h5">Action</Typography>
               </TableCell>
@@ -127,6 +130,11 @@ const StudentAttendance = ({ data }) => {
                 <TableCell>
                   <Typography color="textSecondary" variant="h6">
                     {absen.jam_keluar || "-"}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography color="textSecondary" variant="h6">
+                    {absen.keterangan || "Hadir"}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">

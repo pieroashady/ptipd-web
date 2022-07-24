@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useRouter } from "next/router";
 import {
   experimentalStyled,
@@ -36,8 +36,10 @@ const PageWrapper = experimentalStyled("div")(({ theme }) => ({
 
 const FullLayout = ({ children }) => {
   const router = useRouter();
+  const routerRef = useRef(router);
+  routerRef.current = router;
   const [isSidebarOpen, setSidebarOpen] = React.useState(
-    router.pathname != APP_CONFIG.reservedPath
+    routerRef.current.pathname != APP_CONFIG.reservedPath
   );
   const [isMobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const customizer = useSelector((state) => state.CustomizerReducer);
