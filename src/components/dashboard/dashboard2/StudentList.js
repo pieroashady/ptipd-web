@@ -12,6 +12,7 @@ import {
   Chip,
   TablePagination,
   Grid,
+  Button,
 } from "@mui/material";
 import DashboardCard from "../../baseCard/DashboardCard";
 
@@ -23,10 +24,14 @@ import img5 from "../../../../assets/images/users/5.jpg";
 import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
 import SeachDataForm from "../../forms/SearchDataForm";
 import moment from "moment";
+import useHandleModal from "../../../hooks/useHandleModal";
+import AddSiswaModal from "../../modal/AddSiswaModal";
 
 const StudentList = ({ data }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -45,10 +50,24 @@ const StudentList = ({ data }) => {
       custommargin="10px"
       action={<SeachDataForm />}
     >
+      <AddSiswaModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
+      <Box sx={{ mb: 2 }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => handleOpenModal("add")}
+        >
+          Tambah Siswa
+        </Button>
+      </Box>
       <Box
         sx={{
           overflow: "auto",
-          mt: -3,
+          // mt: -3,
         }}
       >
         <Table

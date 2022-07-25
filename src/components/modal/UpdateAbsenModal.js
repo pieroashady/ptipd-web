@@ -70,7 +70,7 @@ const UpdateAbsenModal = ({ open = false, closeModalHandler, data, type }) => {
               closeModalHandler();
             } catch (error) {
               console.log(error);
-              openSnackBar("Gagal menghapus, silahkan coba kembali nanti");
+              openSnackBar("Terjadi kesalahan pada server");
             }
           }}
         >

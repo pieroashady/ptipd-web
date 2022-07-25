@@ -44,13 +44,10 @@ const Sidebar = ({
   const handleClick = (index) => {
     if (open === index) {
       setOpen((prevopen) => !prevopen);
-      console.log(location);
     } else {
       setOpen(index);
     }
   };
-
-  console.log(router.pathname);
 
   if (location == APP_CONFIG.reservedPath) return <></>;
 
