@@ -12,21 +12,21 @@ import {
   Chip,
   TablePagination,
   Grid,
+  Button,
 } from "@mui/material";
 import DashboardCard from "../../baseCard/DashboardCard";
 
-import img1 from "../../../../assets/images/users/1.jpg";
-import img2 from "../../../../assets/images/users/2.jpg";
-import img3 from "../../../../assets/images/users/3.jpg";
-import img4 from "../../../../assets/images/users/4.jpg";
-import img5 from "../../../../assets/images/users/5.jpg";
 import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
 import SeachDataForm from "../../forms/SearchDataForm";
 import moment from "moment";
+import AddKelasModal from "../../modal/AddKelasModal";
+import useHandleModal from "../../../hooks/useHandleModal";
 
 const ClassList = ({ data }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -43,12 +43,24 @@ const ClassList = ({ data }) => {
       subtitle=""
       customdisplay="block"
       custommargin="10px"
-      action={<SeachDataForm />}
     >
+      <AddKelasModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
+      <Box sx={{ mb: 2 }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => handleOpenModal("add")}
+        >
+          Tambah Kelas
+        </Button>
+      </Box>
       <Box
         sx={{
           overflow: "auto",
-          mt: -3,
         }}
       >
         <Table

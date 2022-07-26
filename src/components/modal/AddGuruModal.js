@@ -35,23 +35,17 @@ import { useRouter } from "next/dist/client/router";
 
 const upTransition = Transition("up");
 
-const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
+const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
   const router = useRouter();
   const { handleCreate } = useCreateData();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [tglLahir, setTglLahir] = useState(null);
-  const [studentPhoto, setStudentPhoto] = useState(null);
+  const [teacherPhoto, setTeacherPhoto] = useState(null);
   const [kelasData, setKelasData] = useState();
   const [studentPhone, setStudentPhone] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const getKelasData = async () => {
-      const response = await getKelas();
-      setKelasData(response);
-    };
-    getKelasData();
-  }, []);
+  useEffect(() => {}, []);
 
   const action = (
     <React.Fragment>
@@ -72,33 +66,32 @@ const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
 
     try {
       const { target } = event;
-      const { nis, nama_siswa, jenis_kelamin, tempat_lahir, kelas_id } = target;
+      const { nip, nama_guru, jenis_kelamin, tempat_lahir } = target;
 
       const data = {
-        nis: nis.value,
-        nama_siswa: nama_siswa.value,
+        nip: nip.value,
+        nama_guru: nama_guru.value,
         jenis_kelamin: jenis_kelamin.value,
         tempat_lahir: tempat_lahir.value,
         tanggal_lahir: tglLahir,
-        kelas_id: Number(kelas_id.value),
         phone_number: studentPhone,
       };
 
-      if (studentPhoto) {
-        const uploadPhoto = await uploadFile(studentPhoto);
-        data.foto_siswa = uploadPhoto.url;
+      if (teacherPhoto) {
+        const uploadPhoto = await uploadFile(teacherPhoto);
+        data.foto_guru = uploadPhoto.url;
       }
 
-      await handleCreate("/siswa", data);
+      await handleCreate("/guru", data);
       setLoading(false);
-      openSnackBar("Berhasil menambahkan siswa");
+      openSnackBar("Berhasil menambahkan guru");
       closeModalHandler();
       router.replace(router.pathname);
       return;
     } catch (error) {
       console.log(error);
       setLoading(false);
-      openSnackBar("Gagal mendaftarkan siswa");
+      openSnackBar("Gagal mendaftarkan guru");
       return;
     }
   };
@@ -122,7 +115,7 @@ const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
       >
         <form onSubmit={create}>
           <DialogTitle id="alert-dialog-slide-title" variant="h4">
-            Tambah Siswa
+            Tambah Guru
           </DialogTitle>
           <DialogContent>
             <DialogContentText
@@ -130,7 +123,7 @@ const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
               component="div"
             >
               <CustomFormLabel htmlFor="input-placement">
-                Upload Foto Siswa
+                Upload Foto Guru
               </CustomFormLabel>
               <Grid container>
                 <Grid item display="flex">
@@ -146,29 +139,29 @@ const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
                       name="logo"
                       accept="image/*"
                       onChange={async (e) => {
-                        setStudentPhoto(e.target.files[0]);
+                        setTeacherPhoto(e.target.files[0]);
                       }}
                     />
                   </Button>
                 </Grid>
                 <Box sx={{ flex: "1 1 auto" }} />
                 <Grid item display="flex" alignItems="center">
-                  {studentPhoto && <Typography>{studentPhoto.name}</Typography>}
+                  {teacherPhoto && <Typography>{teacherPhoto.name}</Typography>}
                 </Grid>
               </Grid>
 
-              <CustomFormLabel htmlFor="input-name">Nama Siswa</CustomFormLabel>
+              <CustomFormLabel htmlFor="input-name">Nama Guru</CustomFormLabel>
               <CustomTextField
                 required
-                id="nama_siswa"
-                name="nama_siswa"
+                id="nama_guru"
+                name="nama_guru"
                 fullWidth
                 size="small"
                 variant="outlined"
               ></CustomTextField>
 
               <CustomFormLabel htmlFor="input-nis">
-                Nomor Induk Siswa
+                Nomor Induk Pegawai
               </CustomFormLabel>
               <CustomTextField
                 required
@@ -177,29 +170,12 @@ const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
                     event.preventDefault();
                   }
                 }}
-                id="nis"
-                name="nis"
+                id="nip"
+                name="nip"
                 fullWidth
                 size="small"
                 variant="outlined"
               ></CustomTextField>
-
-              <CustomFormLabel htmlFor="input-kelas">Kelas</CustomFormLabel>
-              <CustomSelect
-                required
-                id="kelas_id"
-                name="kelas_id"
-                fullWidth
-                variant="outlined"
-                size="small"
-              >
-                {kelasData &&
-                  kelasData.data.map((option, index) => (
-                    <MenuItem key={`kelas${option.id}`} value={option.id}>
-                      {option.nama_kelas}
-                    </MenuItem>
-                  ))}
-              </CustomSelect>
 
               <CustomFormLabel htmlFor="input-gender">
                 Jenis Kelamin
@@ -263,7 +239,7 @@ const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
               </LocalizationProvider>
 
               <CustomFormLabel htmlFor="Lname">
-                Nomor Telfon Siswa
+                Nomor Telfon Guru
               </CustomFormLabel>
               <Box sx={{ mt: 2, mb: 2 }}>
                 <PhoneInput
@@ -297,4 +273,4 @@ const AddSiswaModal = ({ open = false, closeModalHandler, type }) => {
   );
 };
 
-export default AddSiswaModal;
+export default AddGuruModal;

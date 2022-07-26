@@ -12,21 +12,22 @@ import {
   Chip,
   TablePagination,
   Grid,
+  Button,
 } from "@mui/material";
 import DashboardCard from "../../baseCard/DashboardCard";
 
-import img1 from "../../../../assets/images/users/1.jpg";
-import img2 from "../../../../assets/images/users/2.jpg";
-import img3 from "../../../../assets/images/users/3.jpg";
-import img4 from "../../../../assets/images/users/4.jpg";
-import img5 from "../../../../assets/images/users/5.jpg";
 import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
 import SeachDataForm from "../../forms/SearchDataForm";
 import moment from "moment";
+import AddJurusanModal from "../../modal/AddJurusanModal";
+import useHandleModal from "../../../hooks/useHandleModal";
+import JurusanActionMenu from "../../menu-items/JurusanActionMenu";
 
 const JurusanList = ({ data }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -43,12 +44,26 @@ const JurusanList = ({ data }) => {
       subtitle=""
       customdisplay="block"
       custommargin="10px"
-      action={<SeachDataForm />}
     >
+      {openModal && (
+        <AddJurusanModal
+          open={openModal}
+          type={modalType}
+          closeModalHandler={handleCloseModal}
+        />
+      )}
+      <Box sx={{ mb: 2 }}>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => handleOpenModal("add")}
+        >
+          Tambah Jurusan
+        </Button>
+      </Box>
       <Box
         sx={{
           overflow: "auto",
-          mt: -3,
         }}
       >
         <Table
@@ -78,7 +93,7 @@ const JurusanList = ({ data }) => {
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <ThreeDotsMenu data={jurusan} />
+                  <JurusanActionMenu data={jurusan} />
                 </TableCell>
               </TableRow>
             ))}
