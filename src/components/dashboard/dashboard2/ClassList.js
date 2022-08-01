@@ -21,6 +21,7 @@ import SeachDataForm from "../../forms/SearchDataForm";
 import moment from "moment";
 import AddKelasModal from "../../modal/AddKelasModal";
 import useHandleModal from "../../../hooks/useHandleModal";
+import KelasActionMenu from "../../menu-items/KelasActionMenu";
 
 const ClassList = ({ data }) => {
   const [page, setPage] = React.useState(0);
@@ -78,6 +79,12 @@ const ClassList = ({ data }) => {
                 <Typography variant="h5">Jurusan</Typography>
               </TableCell>
               <TableCell>
+                <Typography variant="h5">Tanggal Buat</Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="h5">Tanggal Update</Typography>
+              </TableCell>
+              <TableCell>
                 <Typography align="center" variant="h5">
                   Action
                 </Typography>
@@ -85,23 +92,35 @@ const ClassList = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.data.map((kelas) => (
-              <TableRow key={kelas.id}>
-                <TableCell>
-                  <Typography variant="h6" fontWeight="600">
-                    {kelas.nama_kelas}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {kelas.jurusan.nama_jurusan}
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <ThreeDotsMenu data={kelas} />
-                </TableCell>
-              </TableRow>
-            ))}
+            {data.data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((kelas) => (
+                <TableRow key={kelas.id}>
+                  <TableCell>
+                    <Typography variant="h6" fontWeight="600">
+                      {kelas.nama_kelas}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {kelas.jurusan.nama_jurusan}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {moment(kelas.created_at).format("DD MMM YYYY, HH:mm:ss")}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {moment(kelas.updated_at).format("DD MMM YYYY, HH:mm:ss")}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <KelasActionMenu data={kelas} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <TablePagination

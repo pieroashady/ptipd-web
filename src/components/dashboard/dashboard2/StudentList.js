@@ -16,18 +16,16 @@ import {
 } from "@mui/material";
 import DashboardCard from "../../baseCard/DashboardCard";
 
-import img1 from "../../../../assets/images/users/1.jpg";
-import img2 from "../../../../assets/images/users/2.jpg";
-import img3 from "../../../../assets/images/users/3.jpg";
-import img4 from "../../../../assets/images/users/4.jpg";
-import img5 from "../../../../assets/images/users/5.jpg";
 import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
 import SeachDataForm from "../../forms/SearchDataForm";
 import moment from "moment";
 import useHandleModal from "../../../hooks/useHandleModal";
 import AddSiswaModal from "../../modal/AddSiswaModal";
+import { useRouter } from "next/router";
+import StudentActionMenu from "../../menu-items/StudentActionMenu";
 
 const StudentList = ({ data }) => {
+  const router = useRouter();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
@@ -42,13 +40,22 @@ const StudentList = ({ data }) => {
     setPage(0);
   };
 
+  const keyPress = (e) => {
+    if (e.key == "Enter") {
+      if (e.target.value) {
+        return router.replace(`${router.pathname}?q=${e.target.value}`);
+      }
+      return router.replace(`${router.pathname}`);
+    }
+  };
+
   return (
     <DashboardCard
       title="Data Siswa"
       subtitle=""
       customdisplay="block"
       custommargin="10px"
-      action={<SeachDataForm />}
+      action={<SeachDataForm onKeyPress={keyPress} />}
     >
       <AddSiswaModal
         open={openModal}
@@ -79,7 +86,7 @@ const StudentList = ({ data }) => {
           <TableHead>
             <TableRow>
               <TableCell>
-                <Typography variant="h5">NIP</Typography>
+                <Typography variant="h5">NIS</Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="h5">Nama</Typography>
@@ -102,41 +109,43 @@ const StudentList = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.data.map((siswa) => (
-              <TableRow key={siswa.id}>
-                <TableCell>
-                  <Typography variant="h6" fontWeight="600">
-                    {siswa.nis}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="h6">{siswa.nama_siswa}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {siswa.kelas.nama_kelas}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {siswa.jenis_kelamin == "1" ? "Laki-laki" : "Perempuan"}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {siswa.tempat_lahir}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {moment(siswa.tanggal_lahir).format("DD-MM-YYYY")}
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <ThreeDotsMenu data={siswa} />
-                </TableCell>
-              </TableRow>
-            ))}
+            {data.data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((siswa) => (
+                <TableRow key={siswa.id}>
+                  <TableCell>
+                    <Typography variant="h6" fontWeight="600">
+                      {siswa.nis}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="h6">{siswa.nama_siswa}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {siswa.kelas.nama_kelas}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {siswa.jenis_kelamin == "1" ? "Laki-laki" : "Perempuan"}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {siswa.tempat_lahir}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {moment(siswa.tanggal_lahir).format("DD-MM-YYYY")}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <StudentActionMenu data={siswa} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <TablePagination

@@ -54,10 +54,10 @@ const Sidebar = ({
   const SidebarContent = (
     <SimpleBar style={{ height: "100%" }}>
       <Box p={2} height="100%">
-        <Box sx={{ mt: 2 }}>
+        <Box>
           <LogoIcon />
         </Box>
-        <Box mt={2}>
+        <Box>
           <List>
             {Menuitems.map((item, index) => {
               // {/********SubHeader**********/}

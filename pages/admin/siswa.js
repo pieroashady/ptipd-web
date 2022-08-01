@@ -1,9 +1,15 @@
 import { Grid } from "@mui/material";
+import { isEmpty } from "ramda";
 import { getSiswa } from "../../lib/service/siswa";
 import StudentList from "../../src/components/dashboard/dashboard2/StudentList";
+import SearchDD from "../../src/layouts/header/SearchDD";
 
 export async function getServerSideProps({ query }) {
-  const siswa = await getSiswa();
+  const search = isEmpty(query)
+    ? ""
+    : `${new URLSearchParams(query).toString()}`;
+
+  const siswa = await getSiswa(search);
   return {
     props: {
       siswa,

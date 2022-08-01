@@ -30,7 +30,7 @@ const useLogin = () => {
 
     try {
       await Axios.post("/api/login", data);
-      router.replace("/dashboards/absen");
+      router.replace("/home");
     } catch (error) {
       handleLoading(false);
       alert(error.response.data.message);

@@ -3,7 +3,7 @@ const APP_CONFIG = {
   ironSessionPassword: "HorsuiKuwXdHYHjYGngYdkSKpyQwtIrC",
   ironSessionCookieName: "absensi-web",
   imageDomains: ["localhost"],
-  reservedPath: "/dashboards/scan-absen",
+  reservedPath: "/scan-absen",
 };
 
 export default APP_CONFIG;

@@ -7,9 +7,10 @@ import UpdateAbsenModal from "../modal/UpdateAbsenModal";
 import useHandleModal from "../../hooks/useHandleModal";
 import AddJurusanModal from "../modal/AddJurusanModal";
 import UpdateJurusanModal from "../modal/UpdateJurusanModal";
-import DeleteJurusanModal from "../modal/DeleteJurusanModal";
+import UpdateMapelModal from "../modal/UpdateMapelModal";
+import DeleteMapelModal from "../modal/DeleteMapelModal";
 
-const JurusanActionMenu = (props) => {
+const MapelActionMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
@@ -32,13 +33,13 @@ const JurusanActionMenu = (props) => {
     <>
       {openModal && (
         <>
-          <UpdateJurusanModal
+          <UpdateMapelModal
             open={openModal}
             type={modalType}
             closeModalHandler={handleCloseModal}
             data={data}
           />
-          <DeleteJurusanModal
+          <DeleteMapelModal
             open={openModal}
             type={modalType}
             closeModalHandler={handleCloseModal}
@@ -67,4 +68,4 @@ const JurusanActionMenu = (props) => {
   );
 };
 
-export default JurusanActionMenu;
+export default MapelActionMenu;

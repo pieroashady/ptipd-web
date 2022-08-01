@@ -2,14 +2,10 @@ import React from "react";
 
 import FeatherIcon from "feather-icons-react";
 import { Button, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
-import useUpdate from "../../hooks/useUpdateData";
-import UpdateAbsenModal from "../modal/UpdateAbsenModal";
 import useHandleModal from "../../hooks/useHandleModal";
-import AddJurusanModal from "../modal/AddJurusanModal";
-import UpdateJurusanModal from "../modal/UpdateJurusanModal";
-import DeleteJurusanModal from "../modal/DeleteJurusanModal";
+import UpdateKelasModal from "../modal/UpdateKelasModal";
 
-const JurusanActionMenu = (props) => {
+const KelasActionMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
@@ -31,20 +27,12 @@ const JurusanActionMenu = (props) => {
   return (
     <>
       {openModal && (
-        <>
-          <UpdateJurusanModal
-            open={openModal}
-            type={modalType}
-            closeModalHandler={handleCloseModal}
-            data={data}
-          />
-          <DeleteJurusanModal
-            open={openModal}
-            type={modalType}
-            closeModalHandler={handleCloseModal}
-            data={data}
-          />
-        </>
+        <UpdateKelasModal
+          open={openModal}
+          type={modalType}
+          closeModalHandler={handleCloseModal}
+          data={data}
+        />
       )}
       <IconButton
         aria-haspopup="true"
@@ -61,10 +49,10 @@ const JurusanActionMenu = (props) => {
         onClose={handleClose}
       >
         <MenuItem onClick={() => handleOpenModal("update")}>Edit</MenuItem>
-        <MenuItem onClick={() => handleOpenModal("delete")}>Hapus</MenuItem>
+        <MenuItem onClick={() => handleMenuClick(data.id)}>Hapus</MenuItem>
       </Menu>
     </>
   );
 };
 
-export default JurusanActionMenu;
+export default KelasActionMenu;

@@ -13,27 +13,37 @@ const Menuitems = [
   {
     title: "Dashboard",
     icon: "pie-chart",
-    href: "/dashboards/absen",
+    href: "/admin/absen",
   },
   {
     title: "Siswa",
     icon: "users",
-    href: "/dashboards/siswa",
+    href: "/admin/siswa",
   },
   {
     title: "Guru",
     icon: "users",
-    href: "/dashboards/guru",
+    href: "/admin/guru",
   },
   {
     title: "Jurusan",
     icon: "server",
-    href: "/dashboards/jurusan",
+    href: "/admin/jurusan",
   },
   {
     title: "Kelas",
     icon: "server",
-    href: "/dashboards/kelas",
+    href: "/admin/kelas",
+  },
+  {
+    title: "Mata Pelajaran",
+    icon: "server",
+    href: "/admin/mapel",
+  },
+  {
+    title: "Guru Mata Pelajaran",
+    icon: "server",
+    href: "/admin/jadwal-mapel",
   },
 ];
 

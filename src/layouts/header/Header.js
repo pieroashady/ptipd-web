@@ -1,6 +1,13 @@
 import React from "react";
 import FeatherIcon from "feather-icons-react";
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import PropTypes from "prop-types";
 // Dropdown Component
 import SearchDD from "./SearchDD";
@@ -11,6 +18,7 @@ import NotificationDropdown from "./NotificationDropdown";
 import LiveClock from "../../components/clock/LiveClock";
 import LiveDate from "../../components/clock/LiveDate";
 import ClockTicker from "../../components/clock";
+import LogoutButton from "../../components/logout/logout-button";
 
 const Header = ({
   sx,
@@ -56,6 +64,11 @@ const Header = ({
               <FeatherIcon icon="menu" width="20" height="20" />
             </IconButton>
           </>
+        )}
+        {showSidebar && (
+          <Typography color={"black"} fontSize={27}>
+            SISTEM INFORMASI DAN ABSENSI SISWA
+          </Typography>
         )}
         {/* ------------------------------------------- */}
         {/* Search Dropdown */}
@@ -103,6 +116,16 @@ const Header = ({
         {/* ------------------------------------------- */}
         {/* Profile Dropdown */}
         {/* ------------------------------------------- */}
+        <Box
+          sx={{
+            width: "1px",
+            backgroundColor: "rgba(0,0,0,0.1)",
+            height: "25px",
+            ml: 1,
+            mr: 1,
+          }}
+        />
+        <LogoutButton />
       </Toolbar>
     </AppBar>
   );

@@ -27,50 +27,7 @@ const Login = () => {
 
   return (
     <Grid container sx={{ height: "100vh", justifyContent: "center" }}>
-      <Grid
-        item
-        xs={12}
-        sm={12}
-        lg={6}
-        sx={{
-          background: (theme) =>
-            `${theme.palette.mode === "dark" ? "#1c1f25" : "#ffffff"}`,
-        }}
-      >
-        <Box
-          sx={{
-            position: "relative",
-          }}
-        >
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            sx={{
-              position: {
-                xs: "relative",
-                lg: "absolute",
-              },
-              height: { xs: "auto", lg: "100vh" },
-              right: { xs: "auto", lg: "-50px" },
-              margin: "0 auto",
-            }}
-          >
-            <Image src={img1} alt="bg" maxWidth="812" />
-          </Box>
-
-          <Box
-            sx={{
-              p: 4,
-              position: "absolute",
-              top: "0",
-            }}
-          >
-            <LogoIcon />
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={8} lg={6} display="flex" alignItems="center">
+      <Grid item xs={12} sm={8} lg={8} display="flex" alignItems="center">
         <Grid container spacing={0} display="flex" justifyContent="center">
           <Grid item xs={12} lg={9} xl={6}>
             <Box
@@ -79,7 +36,7 @@ const Login = () => {
               }}
             >
               <Typography fontWeight="700" variant="h3">
-                Selamat Datang di PTIPD TKJ SMKN 5
+                Selamat Datang di SIDAS TKJ SMKN 5
               </Typography>
               <Box display="flex" alignItems="center">
                 <Typography

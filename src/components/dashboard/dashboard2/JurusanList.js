@@ -78,6 +78,12 @@ const JurusanList = ({ data }) => {
                 <Typography variant="h5">Nama Jurusan</Typography>
               </TableCell>
               <TableCell>
+                <Typography variant="h5">Tanggal Buat</Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="h5">Tanggal Update</Typography>
+              </TableCell>
+              <TableCell>
                 <Typography align="center" variant="h5">
                   Action
                 </Typography>
@@ -85,18 +91,34 @@ const JurusanList = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.data.map((jurusan) => (
-              <TableRow key={jurusan.id}>
-                <TableCell>
-                  <Typography variant="h6" fontWeight="600">
-                    {jurusan.nama_jurusan}
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <JurusanActionMenu data={jurusan} />
-                </TableCell>
-              </TableRow>
-            ))}
+            {data.data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((jurusan) => (
+                <TableRow key={jurusan.id}>
+                  <TableCell>
+                    <Typography variant="h6" fontWeight="600">
+                      {jurusan.nama_jurusan}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {moment(jurusan.created_at).format(
+                        "DD MMM YYYY, HH:mm:ss"
+                      )}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {moment(jurusan.updated_at).format(
+                        "DD MMM YYYY, HH:mm:ss"
+                      )}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <JurusanActionMenu data={jurusan} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <TablePagination

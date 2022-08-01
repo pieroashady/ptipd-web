@@ -7,9 +7,9 @@ import UpdateAbsenModal from "../modal/UpdateAbsenModal";
 import useHandleModal from "../../hooks/useHandleModal";
 import AddJurusanModal from "../modal/AddJurusanModal";
 import UpdateJurusanModal from "../modal/UpdateJurusanModal";
-import DeleteJurusanModal from "../modal/DeleteJurusanModal";
+import UpdateStudentModal from "../modal/UpdateStudentModal";
 
-const JurusanActionMenu = (props) => {
+const StudentActionMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
@@ -31,20 +31,12 @@ const JurusanActionMenu = (props) => {
   return (
     <>
       {openModal && (
-        <>
-          <UpdateJurusanModal
-            open={openModal}
-            type={modalType}
-            closeModalHandler={handleCloseModal}
-            data={data}
-          />
-          <DeleteJurusanModal
-            open={openModal}
-            type={modalType}
-            closeModalHandler={handleCloseModal}
-            data={data}
-          />
-        </>
+        <UpdateStudentModal
+          open={openModal}
+          type={modalType}
+          closeModalHandler={handleCloseModal}
+          data={data}
+        />
       )}
       <IconButton
         aria-haspopup="true"
@@ -61,10 +53,10 @@ const JurusanActionMenu = (props) => {
         onClose={handleClose}
       >
         <MenuItem onClick={() => handleOpenModal("update")}>Edit</MenuItem>
-        <MenuItem onClick={() => handleOpenModal("delete")}>Hapus</MenuItem>
+        <MenuItem onClick={() => handleMenuClick(data.id)}>Hapus</MenuItem>
       </Menu>
     </>
   );
 };
 
-export default JurusanActionMenu;
+export default StudentActionMenu;

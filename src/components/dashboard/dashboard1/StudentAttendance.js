@@ -104,50 +104,54 @@ const StudentAttendance = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {absen.data.map((absen) => (
-              <TableRow key={absen.id}>
-                <TableCell>
-                  <Typography variant="h6" fontWeight="600">
-                    {absen.siswa.nis}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="h6">{absen.siswa.nama_siswa}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{absen.siswa.kelas.nama_kelas}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {moment(absen.tanggal).format("DD-MM-YYYY")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {absen.jam_masuk}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {absen.jam_keluar || "-"}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {absen.keterangan || "Hadir"}
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <ThreeDotsMenu data={absen} />
-                </TableCell>
-              </TableRow>
-            ))}
+            {absen.data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((absen) => (
+                <TableRow key={absen.id}>
+                  <TableCell>
+                    <Typography variant="h6" fontWeight="600">
+                      {absen.siswa.nis}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="h6">
+                      {absen.siswa.nama_siswa}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography>{absen.siswa.kelas.nama_kelas}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {moment(absen.tanggal).format("DD-MM-YYYY")}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {absen.jam_masuk}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {absen.jam_keluar || "-"}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {absen.keterangan || "Hadir"}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <ThreeDotsMenu data={absen} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={data.data.length}
+          count={absen.data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
