@@ -1,15 +1,15 @@
-import { loginService } from '../../lib/service/login';
-import { withSessionRoute } from '../../lib/session/withSession';
+import { loginService } from "../../lib/service/login";
+import { withSessionRoute } from "../../lib/session/withSession";
 
 async function loginRoute(req, res) {
   try {
     const response = await loginService(req.body);
     const { data } = response;
 
-    if (data.role === 'siswa') {
+    if (data.role === "siswa") {
       return res.status(500).json({
         success: false,
-        message: 'Not Authorized',
+        message: "Not Authorized",
       });
     }
 
@@ -24,7 +24,10 @@ async function loginRoute(req, res) {
 
     return res.json({
       success: true,
-      message: 'Berhasil login',
+      message: "Berhasil login",
+      data: {
+        role: data.role,
+      },
     });
   } catch (error) {
     return res.status(500).json(error.response.data);

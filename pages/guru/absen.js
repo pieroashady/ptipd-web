@@ -1,15 +1,15 @@
-import { Grid } from '@mui/material';
-import { isEmpty } from 'ramda';
-import moment from 'moment';
-import { getAbsenSiswa } from '../../lib/service/absen-siswa';
-import { getKelas } from '../../lib/service/kelas';
-import StudentAttendance from '../../src/components/dashboard/dashboard1/StudentAttendance';
-import GuruStudentAttendance from '../../src/components/dashboard/dashboard1/GuruStudentAttendance';
-import WithAuth from '../../lib/session/withAuth';
-import { getJadwalMapel } from '../../lib/service/jadwal-mapel';
+import { Grid } from "@mui/material";
+import { isEmpty } from "ramda";
+import moment from "moment";
+import { getAbsenSiswa } from "../../lib/service/absen-siswa";
+import { getKelas } from "../../lib/service/kelas";
+import StudentAttendance from "../../src/components/dashboard/dashboard1/StudentAttendance";
+import GuruStudentAttendance from "../../src/components/dashboard/dashboard1/GuruStudentAttendance";
+import { getJadwalMapel } from "../../lib/service/jadwal-mapel";
+import withGuruAuth from "../../lib/session/withGuruAuth";
 
-export const getServerSideProps = WithAuth(async ({ req, query }) => {
-  const today = moment().startOf('day').format('YYYY-MM-DD');
+export const getServerSideProps = withGuruAuth(async ({ req, query }) => {
+  const today = moment().startOf("day").format("YYYY-MM-DD");
 
   const search = isEmpty(query)
     ? `tanggal=${today}`

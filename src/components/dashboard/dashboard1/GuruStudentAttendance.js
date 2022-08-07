@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import React from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 import {
   Typography,
@@ -17,23 +17,27 @@ import {
   MenuItem,
   InputLabel,
   Select,
-} from '@mui/material';
-import ThemeSelect from './ThemeSelect';
-import DashboardCard from '../../baseCard/DashboardCard';
+  Button,
+} from "@mui/material";
+import ThemeSelect from "./ThemeSelect";
+import DashboardCard from "../../baseCard/DashboardCard";
 
-import ThreeDotsMenu from '../../menu-items/ThreeDotsMenu';
-import SeachDataForm from '../../forms/SearchDataForm';
-import moment from 'moment';
-import useAbsenList from '../../../hooks/useAbsenList';
-import { isEmpty } from 'ramda';
-import CustomSelect from '../../forms/custom-elements/CustomSelect';
-import CustomFormLabel from '../../forms/custom-elements/CustomFormLabel';
+import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
+import SeachDataForm from "../../forms/SearchDataForm";
+import moment from "moment";
+import useAbsenList from "../../../hooks/useAbsenList";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import CustomSelect from "../../forms/custom-elements/CustomSelect";
+import CustomFormLabel from "../../forms/custom-elements/CustomFormLabel";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
 
 const GuruStudentAttendance = ({ data, kelas }) => {
   const router = useRouter();
   const { absen } = useAbsenList(data);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [openDaily, setOpenDaily] = React.useState(false);
+  const [value2, setValue2] = React.useState(null);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -45,7 +49,7 @@ const GuruStudentAttendance = ({ data, kelas }) => {
   };
 
   const keyPress = (e) => {
-    if (e.key == 'Enter') {
+    if (e.key == "Enter") {
       if (e.target.value) {
         return router.replace(`${router.pathname}?q=${e.target.value}`);
       }
@@ -53,7 +57,24 @@ const GuruStudentAttendance = ({ data, kelas }) => {
     }
   };
 
+  const downloadDailyAbsen = () => {};
+
   if (!absen) return <></>;
+
+  const ShowDatePicker = () => {
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          open={openDaily}
+          onClose={() => setOpenDaily(false)}
+          value={value2}
+          onChange={(newValue2) => {
+            setValue2(newValue2);
+          }}
+        />
+      </LocalizationProvider>
+    );
+  };
 
   return (
     <DashboardCard
@@ -67,7 +88,7 @@ const GuruStudentAttendance = ({ data, kelas }) => {
             <CustomFormLabel>Pilih Kelas</CustomFormLabel>
             <CustomSelect
               InputLabelProps={{
-                style: { color: 'black' },
+                style: { color: "black" },
               }}
               required
               placeholder="Kelas"
@@ -94,19 +115,41 @@ const GuruStudentAttendance = ({ data, kelas }) => {
               onKeyPress={keyPress}
             />
           </Grid>
+          <Grid item>
+            <Box>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => setOpenDaily(true)}
+              >
+                Rekap Bulanan
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
       }
     >
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          open={openDaily}
+          onClose={() => setOpenDaily(false)}
+          value={value2}
+          onChange={(newValue2) => {
+            setValue2(newValue2);
+          }}
+          renderInput={(params) => <></>}
+        />
+      </LocalizationProvider>
       <Box
         sx={{
-          overflow: 'auto',
+          overflow: "auto",
           mt: -1,
         }}
       >
         <Table
           aria-label="simple table"
           sx={{
-            whiteSpace: 'nowrap',
+            whiteSpace: "nowrap",
           }}
         >
           <TableHead>
@@ -157,7 +200,7 @@ const GuruStudentAttendance = ({ data, kelas }) => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {moment(absen.tanggal).format('DD-MM-YYYY')}
+                      {moment(absen.tanggal).format("DD-MM-YYYY")}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -167,12 +210,12 @@ const GuruStudentAttendance = ({ data, kelas }) => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {absen.jam_keluar || '-'}
+                      {absen.jam_keluar || "-"}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {absen.keterangan || 'Hadir'}
+                      {absen.keterangan || "Hadir"}
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
