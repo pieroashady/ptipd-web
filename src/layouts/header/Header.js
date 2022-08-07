@@ -1,5 +1,5 @@
-import React from "react";
-import FeatherIcon from "feather-icons-react";
+import React from 'react';
+import FeatherIcon from 'feather-icons-react';
 import {
   AppBar,
   Box,
@@ -7,18 +7,13 @@ import {
   IconButton,
   Toolbar,
   Typography,
-} from "@mui/material";
-import PropTypes from "prop-types";
+} from '@mui/material';
+import PropTypes from 'prop-types';
 // Dropdown Component
-import SearchDD from "./SearchDD";
-import ProfileDD from "./ProfileDD";
-import CartDropdown from "./CartDropdown";
-import MessageDropdown from "./MessageDropdown";
-import NotificationDropdown from "./NotificationDropdown";
-import LiveClock from "../../components/clock/LiveClock";
-import LiveDate from "../../components/clock/LiveDate";
-import ClockTicker from "../../components/clock";
-import LogoutButton from "../../components/logout/logout-button";
+import SearchDD from './SearchDD';
+import ProfileDD from './ProfileDD';
+import ClockTicker from '../../components/clock';
+import LogoutButton from '../../components/logout/logout-button';
 
 const Header = ({
   sx,
@@ -41,8 +36,8 @@ const Header = ({
               size="large"
               sx={{
                 display: {
-                  lg: "flex",
-                  xs: "none",
+                  lg: 'flex',
+                  xs: 'none',
                 },
               }}
             >
@@ -56,8 +51,8 @@ const Header = ({
               onClick={toggleMobileSidebar}
               sx={{
                 display: {
-                  lg: "none",
-                  xs: "flex",
+                  lg: 'none',
+                  xs: 'flex',
                 },
               }}
             >
@@ -66,7 +61,7 @@ const Header = ({
           </>
         )}
         {showSidebar && (
-          <Typography color={"black"} fontSize={27}>
+          <Typography color={'black'} fontSize={27}>
             SISTEM INFORMASI DAN ABSENSI SISWA
           </Typography>
         )}
@@ -101,9 +96,9 @@ const Header = ({
 
         <Box
           sx={{
-            width: "1px",
-            backgroundColor: "rgba(0,0,0,0.1)",
-            height: "25px",
+            width: '1px',
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            height: '25px',
             ml: 1,
             mr: 1,
           }}
@@ -118,9 +113,9 @@ const Header = ({
         {/* ------------------------------------------- */}
         <Box
           sx={{
-            width: "1px",
-            backgroundColor: "rgba(0,0,0,0.1)",
-            height: "25px",
+            width: '1px',
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            height: '25px',
             ml: 1,
             mr: 1,
           }}

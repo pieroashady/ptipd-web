@@ -1,10 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import FeatherIcon from "feather-icons-react";
-import { Button, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
-import useHandleModal from "../../hooks/useHandleModal";
-import UpdateKelasModal from "../modal/UpdateKelasModal";
-import UpdateJadwalMapelModal from "../modal/UpdateJadwalMapelModal";
+import FeatherIcon from 'feather-icons-react';
+import { Button, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import useHandleModal from '../../hooks/useHandleModal';
+import UpdateKelasModal from '../modal/UpdateKelasModal';
+import UpdateJadwalMapelModal from '../modal/UpdateJadwalMapelModal';
+import DeleteJadwalMapel from '../modal/DeleteJadwalMapel';
 
 const JadwalMapelActionMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,12 +29,20 @@ const JadwalMapelActionMenu = (props) => {
   return (
     <>
       {openModal && (
-        <UpdateJadwalMapelModal
-          open={openModal}
-          type={modalType}
-          closeModalHandler={handleCloseModal}
-          data={data}
-        />
+        <>
+          <UpdateJadwalMapelModal
+            open={openModal}
+            type={modalType}
+            closeModalHandler={handleCloseModal}
+            data={data}
+          />
+          <DeleteJadwalMapel
+            open={openModal}
+            type={modalType}
+            closeModalHandler={handleCloseModal}
+            data={data}
+          />
+        </>
       )}
       <IconButton
         aria-haspopup="true"
@@ -49,8 +58,8 @@ const JadwalMapelActionMenu = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => handleOpenModal("update")}>Edit</MenuItem>
-        <MenuItem onClick={() => handleMenuClick(data.id)}>Hapus</MenuItem>
+        <MenuItem onClick={() => handleOpenModal('update')}>Edit</MenuItem>
+        <MenuItem onClick={() => handleOpenModal('delete')}>Hapus</MenuItem>
       </Menu>
     </>
   );

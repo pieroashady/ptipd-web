@@ -1,15 +1,15 @@
-import { Grid, Typography } from "@mui/material";
-import moment from "moment";
-import { isEmpty } from "ramda";
-import Image from "next/image";
+import { Grid, Typography } from '@mui/material';
+import moment from 'moment';
+import { isEmpty } from 'ramda';
+import Image from 'next/image';
 
-import { getAbsenSiswa } from "../../lib/service/absen-siswa";
-import { getQrCode } from "../../lib/service/qr-code";
-import StudentAttendance from "../../src/components/dashboard/dashboard1/StudentAttendance";
-import QRCodeCard from "../../src/components/dashboard/dashboard1/QRCodeCard";
+import { getAbsenSiswa } from '../../lib/service/absen-siswa';
+import { getQrCode } from '../../lib/service/qr-code';
+import StudentAttendance from '../../src/components/dashboard/dashboard1/StudentAttendance';
+import QRCodeCard from '../../src/components/dashboard/dashboard1/QRCodeCard';
 
 export async function getServerSideProps({ query }) {
-  const today = moment().startOf("day").format("YYYY-MM-DD");
+  const today = moment().startOf('day').format('YYYY-MM-DD');
 
   const search = isEmpty(query)
     ? `tanggal=${today}`
@@ -30,8 +30,8 @@ const ScanAbsen = ({ absen, qrCode }) => {
   return (
     <Grid container spacing={0}>
       <Grid item lg={12} sx={{ mb: 4 }}>
-        <Typography variant="h1" fontSize={40} textAlign={"center"}>
-          PUSAT INFORMASI DAN PANGKALAN DATA TKJ SMKN 5 KAB. TANGERANG
+        <Typography variant="h1" fontSize={40} textAlign={'center'}>
+          SISTEM INFORMASI DAN ABSENSI TKJ SMKN 5 KAB. TANGERANG
         </Typography>
       </Grid>
       <Grid item lg={4}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Typography,
@@ -10,15 +10,15 @@ import {
   TableRow,
   TablePagination,
   Button,
-} from "@mui/material";
-import DashboardCard from "../../baseCard/DashboardCard";
+} from '@mui/material';
+import DashboardCard from '../../baseCard/DashboardCard';
 
-import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
-import SeachDataForm from "../../forms/SearchDataForm";
-import moment from "moment";
-import useHandleModal from "../../../hooks/useHandleModal";
-import AddGuruModal from "../../modal/AddGuruModal";
-import TeacherActionMenu from "../../menu-items/TeacherActionMenu";
+import ThreeDotsMenu from '../../menu-items/ThreeDotsMenu';
+import SeachDataForm from '../../forms/SearchDataForm';
+import moment from 'moment';
+import useHandleModal from '../../../hooks/useHandleModal';
+import AddGuruModal from '../../modal/AddGuruModal';
+import TeacherActionMenu from '../../menu-items/TeacherActionMenu';
 
 const TeacherList = ({ data }) => {
   const [page, setPage] = React.useState(0);
@@ -52,20 +52,21 @@ const TeacherList = ({ data }) => {
         <Button
           color="primary"
           variant="contained"
-          onClick={() => handleOpenModal("add")}
+          onClick={() => handleOpenModal('add')}
         >
           Tambah Guru
         </Button>
       </Box>
       <Box
         sx={{
-          overflow: "auto",
+          overflow: 'auto',
+          mt: -1,
         }}
       >
         <Table
           aria-label="simple table"
           sx={{
-            whiteSpace: "nowrap",
+            whiteSpace: 'nowrap',
           }}
         >
           <TableHead>
@@ -105,7 +106,7 @@ const TeacherList = ({ data }) => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {guru.jenis_kelamin == "1" ? "Laki-laki" : "Perempuan"}
+                      {guru.jenis_kelamin == '1' ? 'Laki-laki' : 'Perempuan'}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -115,7 +116,7 @@ const TeacherList = ({ data }) => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {moment(guru.tanggal_lahir).format("DD-MM-YYYY")}
+                      {moment(guru.tanggal_lahir).format('DD-MM-YYYY')}
                     </Typography>
                   </TableCell>
                   <TableCell align="center">

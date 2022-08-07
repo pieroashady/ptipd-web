@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import FeatherIcon from "feather-icons-react";
-import { Button, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
-import useUpdate from "../../hooks/useUpdateData";
-import UpdateAbsenModal from "../modal/UpdateAbsenModal";
-import useHandleModal from "../../hooks/useHandleModal";
+import FeatherIcon from 'feather-icons-react';
+import { Button, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import useUpdate from '../../hooks/useUpdateData';
+import UpdateAbsenModal from '../modal/UpdateAbsenModal';
+import useHandleModal from '../../hooks/useHandleModal';
 
 const ThreeDotsMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -49,12 +49,11 @@ const ThreeDotsMenu = (props) => {
       >
         <MenuItem
           onClick={() => {
-            handleOpenModal("edit");
+            handleOpenModal('edit');
           }}
         >
           Edit
         </MenuItem>
-        <MenuItem onClick={() => handleMenuClick(data.id)}>Hapus</MenuItem>
       </Menu>
     </>
   );

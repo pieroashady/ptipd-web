@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Typography, Card, CardHeader, CardContent } from "@mui/material";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Typography, Card, CardHeader, CardContent, Box } from '@mui/material';
 
 const DashboardCard = ({
   custompadding,
@@ -13,21 +13,14 @@ const DashboardCard = ({
   children,
   textAlign,
 }) => (
-  <Card
-    sx={{
-      p: custompadding,
-      "& .MuiCardContent-root:last-child": {
-        pb: custompadding,
-      },
-    }}
-  >
+  <Card>
     <CardHeader
       sx={{
         p: customheaderpadding,
         display: {
           xs: customdisplay,
-          lg: "flex",
-          sm: "flex",
+          // lg: 'flex',
+          // sm: 'flex',
         },
       }}
       title={
@@ -44,7 +37,7 @@ const DashboardCard = ({
         </Typography>
       }
       subtitle={subtitle}
-      action={action || ""}
+      action={<Box sx={{ mt: 4 }}>{action}</Box> || ''}
     />
     {/* content area */}
     <CardContent

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Box,
@@ -11,18 +11,18 @@ import {
   IconButton,
   MenuItem,
   Snackbar,
-} from "@mui/material";
-import FeatherIcon from "feather-icons-react";
+} from '@mui/material';
+import FeatherIcon from 'feather-icons-react';
 
-import CustomFormLabel from "../forms/custom-elements/CustomFormLabel";
-import CustomTextField from "../forms/custom-elements/CustomTextField";
-import Transition from "../transition";
-import { useSnackbar } from "../../hooks/useSnackbar";
-import { useRouter } from "next/router";
-import CustomSelect from "../forms/custom-elements/CustomSelect";
-import useUpdate from "../../hooks/useUpdateData";
+import CustomFormLabel from '../forms/custom-elements/CustomFormLabel';
+import CustomTextField from '../forms/custom-elements/CustomTextField';
+import Transition from '../transition';
+import { useSnackbar } from '../../hooks/useSnackbar';
+import { useRouter } from 'next/router';
+import CustomSelect from '../forms/custom-elements/CustomSelect';
+import useUpdate from '../../hooks/useUpdateData';
 
-const upTransition = Transition("up");
+const upTransition = Transition('up');
 
 const UpdateAbsenModal = ({ open = false, closeModalHandler, data, type }) => {
   const { handleUpdate } = useUpdate();
@@ -52,7 +52,7 @@ const UpdateAbsenModal = ({ open = false, closeModalHandler, data, type }) => {
         autoHideDuration={5000}
       />
       <Dialog
-        open={open & (type === "edit")}
+        open={open & (type === 'edit')}
         TransitionComponent={upTransition}
         onClose={closeModalHandler}
         fullWidth
@@ -63,14 +63,14 @@ const UpdateAbsenModal = ({ open = false, closeModalHandler, data, type }) => {
           onSubmit={async (e) => {
             e.preventDefault();
             try {
-              await handleUpdate("/absen-siswa", data.id, {
+              await handleUpdate('/absen-siswa', data.id, {
                 keterangan: e.target.keterangan.value,
               });
-              openSnackBar("Berhasil");
+              openSnackBar('Berhasil');
               closeModalHandler();
             } catch (error) {
               console.log(error);
-              openSnackBar("Terjadi kesalahan pada server");
+              openSnackBar('Terjadi kesalahan pada server');
             }
           }}
         >
@@ -94,7 +94,7 @@ const UpdateAbsenModal = ({ open = false, closeModalHandler, data, type }) => {
                 size="small"
                 sx={{ mb: 2 }}
               >
-                {["Izin", "Sakit"].map((option, index) => (
+                {['Izin', 'Sakit', 'Alpa'].map((option, index) => (
                   <MenuItem key={`desckey${index}`} value={option}>
                     {option}
                   </MenuItem>

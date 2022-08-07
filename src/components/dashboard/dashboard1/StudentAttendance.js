@@ -1,6 +1,6 @@
-import React from "react";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import React from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import {
   Typography,
@@ -14,15 +14,15 @@ import {
   Chip,
   TablePagination,
   Grid,
-} from "@mui/material";
-import ThemeSelect from "./ThemeSelect";
-import DashboardCard from "../../baseCard/DashboardCard";
+} from '@mui/material';
+import ThemeSelect from './ThemeSelect';
+import DashboardCard from '../../baseCard/DashboardCard';
 
-import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
-import SeachDataForm from "../../forms/SearchDataForm";
-import moment from "moment";
-import useAbsenList from "../../../hooks/useAbsenList";
-import { isEmpty } from "ramda";
+import ThreeDotsMenu from '../../menu-items/ThreeDotsMenu';
+import SeachDataForm from '../../forms/SearchDataForm';
+import moment from 'moment';
+import useAbsenList from '../../../hooks/useAbsenList';
+import { isEmpty } from 'ramda';
 
 const StudentAttendance = ({ data }) => {
   const router = useRouter();
@@ -40,7 +40,7 @@ const StudentAttendance = ({ data }) => {
   };
 
   const keyPress = (e) => {
-    if (e.key == "Enter") {
+    if (e.key == 'Enter') {
       if (e.target.value) {
         return router.replace(`${router.pathname}?q=${e.target.value}`);
       }
@@ -65,14 +65,14 @@ const StudentAttendance = ({ data }) => {
     >
       <Box
         sx={{
-          overflow: "auto",
-          mt: -3,
+          overflow: 'auto',
+          mt: -1,
         }}
       >
         <Table
           aria-label="simple table"
           sx={{
-            whiteSpace: "nowrap",
+            whiteSpace: 'nowrap',
           }}
         >
           <TableHead>
@@ -123,7 +123,7 @@ const StudentAttendance = ({ data }) => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {moment(absen.tanggal).format("DD-MM-YYYY")}
+                      {moment(absen.tanggal).format('DD-MM-YYYY')}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -133,12 +133,12 @@ const StudentAttendance = ({ data }) => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {absen.jam_keluar || "-"}
+                      {absen.jam_keluar || '-'}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="h6">
-                      {absen.keterangan || "Hadir"}
+                      {absen.keterangan || 'Hadir'}
                     </Typography>
                   </TableCell>
                   <TableCell align="center">

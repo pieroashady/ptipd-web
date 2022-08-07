@@ -4,9 +4,9 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: "/",
-        destination: "/dashboards/absen",
-        permanent: true,
+        source: '/',
+        destination: '/home',
+        permanent: false,
       },
     ];
   },

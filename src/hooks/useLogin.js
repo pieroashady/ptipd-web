@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Axios from "axios";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Axios from 'axios';
 
 const useLogin = () => {
   const router = useRouter();
@@ -29,8 +29,12 @@ const useLogin = () => {
     };
 
     try {
-      await Axios.post("/api/login", data);
-      router.replace("/home");
+      await Axios.post('/api/login', data);
+      if (data.role === 'guru') {
+        router.replace('/guru/absen');
+        return;
+      }
+      router.replace('/home');
     } catch (error) {
       handleLoading(false);
       alert(error.response.data.message);

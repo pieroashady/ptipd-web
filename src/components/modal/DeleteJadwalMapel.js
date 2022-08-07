@@ -23,7 +23,7 @@ import deleteService from '../../../lib/service/delete-service';
 
 const upTransition = Transition('up');
 
-const DeleteSiswaModal = ({ open = false, closeModalHandler, type, data }) => {
+const DeleteJadwalMapel = ({ open = false, closeModalHandler, type, data }) => {
   const router = useRouter();
   const { isActive, message, openSnackBar, closeSnackBar } = useSnackbar();
   const [loading, setLoading] = useState(false);
@@ -48,16 +48,16 @@ const DeleteSiswaModal = ({ open = false, closeModalHandler, type, data }) => {
     event.preventDefault();
 
     try {
-      await deleteService('/siswa', data.id);
+      await deleteService('/jadwal-mapel', data.id);
       setLoading(false);
-      alert('Berhasil menghapus siswa');
+      alert('Berhasil menghapus jadwal mengajar');
       closeModalHandler();
       router.replace(router.pathname);
       return;
     } catch (error) {
       console.log(error);
       setLoading(false);
-      openSnackBar(`Gagal menghapus siswa`);
+      openSnackBar(`Gagal menghapus jadwal mengajar`);
       return;
     }
   };
@@ -72,7 +72,7 @@ const DeleteSiswaModal = ({ open = false, closeModalHandler, type, data }) => {
         autoHideDuration={5000}
       />
       <Dialog
-        open={open && type === 'delete'}
+        open={open & (type === 'delete')}
         TransitionComponent={upTransition}
         onClose={closeModalHandler}
         fullWidth
@@ -81,14 +81,14 @@ const DeleteSiswaModal = ({ open = false, closeModalHandler, type, data }) => {
       >
         <form onSubmit={create}>
           <DialogTitle id="alert-dialog-slide-title" variant="h4">
-            Hapus siswa
+            Hapus Jadwal Mengajar
           </DialogTitle>
           <DialogContent>
             <DialogContentText
               id="alert-dialog-slide-description"
               component="div"
             >
-              {`Apakah anda ingin menghapus siswa ${data.nama_siswa} ?`}
+              {`Apakah anda ingin menghapus guru ${data.guru.nama_guru} yang mengajar ${data.mata_pelajaran.nama_mapel} kelas ${data.kelas.nama_kelas} ?`}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -110,4 +110,4 @@ const DeleteSiswaModal = ({ open = false, closeModalHandler, type, data }) => {
   );
 };
 
-export default DeleteSiswaModal;
+export default DeleteJadwalMapel;

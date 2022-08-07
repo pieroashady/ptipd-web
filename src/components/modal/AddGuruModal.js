@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 import {
   Box,
@@ -13,27 +13,28 @@ import {
   MenuItem,
   Grid,
   Typography,
-} from "@mui/material";
-import FeatherIcon from "feather-icons-react";
-import PhoneInput from "react-phone-input-2";
+} from '@mui/material';
+import FeatherIcon from 'feather-icons-react';
+import PhoneInput from 'react-phone-input-2';
 
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
-import "react-phone-input-2/lib/material.css";
-import { useSnackbar } from "../../hooks/useSnackbar";
+import 'react-phone-input-2/lib/material.css';
+import { useSnackbar } from '../../hooks/useSnackbar';
 
-import CustomFormLabel from "../forms/custom-elements/CustomFormLabel";
-import CustomTextField from "../forms/custom-elements/CustomTextField";
-import Transition from "../transition";
-import useCreateData from "../../hooks/useCreateData";
-import CustomSelect from "../forms/custom-elements/CustomSelect";
-import gender from "../../../lib/constant/gender";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import { getKelas } from "../../../lib/service/kelas";
-import { uploadFile } from "../../../lib/service/upload-file";
-import { useRouter } from "next/dist/client/router";
+import CustomFormLabel from '../forms/custom-elements/CustomFormLabel';
+import CustomTextField from '../forms/custom-elements/CustomTextField';
+import Transition from '../transition';
+import useCreateData from '../../hooks/useCreateData';
+import CustomSelect from '../forms/custom-elements/CustomSelect';
+import gender from '../../../lib/constant/gender';
+import { DatePicker, LocalizationProvider } from '@mui/lab';
+import { getKelas } from '../../../lib/service/kelas';
+import { uploadFile } from '../../../lib/service/upload-file';
+import { useRouter } from 'next/dist/client/router';
+import moment from 'moment';
 
-const upTransition = Transition("up");
+const upTransition = Transition('up');
 
 const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
   const router = useRouter();
@@ -77,21 +78,23 @@ const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
         phone_number: studentPhone,
       };
 
+      console.log(tglLahir);
+
       if (teacherPhoto) {
         const uploadPhoto = await uploadFile(teacherPhoto);
         data.foto_guru = uploadPhoto.url;
       }
 
-      await handleCreate("/guru", data);
+      await handleCreate('/guru', data);
       setLoading(false);
-      openSnackBar("Berhasil menambahkan guru");
+      openSnackBar('Berhasil menambahkan guru');
       closeModalHandler();
       router.replace(router.pathname);
       return;
     } catch (error) {
       console.log(error);
       setLoading(false);
-      openSnackBar("Gagal mendaftarkan guru");
+      openSnackBar('Gagal mendaftarkan guru');
       return;
     }
   };
@@ -106,7 +109,7 @@ const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
         autoHideDuration={5000}
       />
       <Dialog
-        open={open & (type === "add")}
+        open={open & (type === 'add')}
         TransitionComponent={upTransition}
         onClose={closeModalHandler}
         fullWidth
@@ -144,7 +147,7 @@ const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
                     />
                   </Button>
                 </Grid>
-                <Box sx={{ flex: "1 1 auto" }} />
+                <Box sx={{ flex: '1 1 auto' }} />
                 <Grid item display="flex" alignItems="center">
                   {teacherPhoto && <Typography>{teacherPhoto.name}</Typography>}
                 </Grid>
@@ -215,7 +218,9 @@ const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
                   required
                   value={tglLahir}
                   onChange={(value) => {
-                    setTglLahir(value);
+                    const convertDate = moment(value).format('YYYY-MM-DD');
+                    console.log(convertDate);
+                    setTglLahir(convertDate);
                   }}
                   renderInput={(params) => (
                     <CustomTextField
@@ -224,12 +229,12 @@ const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
                       fullWidth
                       id="date"
                       sx={{
-                        "& .MuiSvgIcon-root": {
-                          width: "18px",
-                          height: "18px",
+                        '& .MuiSvgIcon-root': {
+                          width: '18px',
+                          height: '18px',
                         },
-                        "& .MuiFormHelperText-root": {
-                          display: "none",
+                        '& .MuiFormHelperText-root': {
+                          display: 'none',
                         },
                         mb: 1,
                       }}
@@ -261,7 +266,7 @@ const AddGuruModal = ({ open = false, closeModalHandler, type }) => {
               disabled={loading}
               type="submit"
             >
-              {loading ? "Submitting..." : "Tambah"}
+              {loading ? 'Submitting...' : 'Tambah'}
             </Button>
             <Button onClick={closeModalHandler} color="secondary">
               Batal
