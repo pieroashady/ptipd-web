@@ -18,6 +18,8 @@ import {
   InputLabel,
   Select,
   Button,
+  Dialog,
+  DialogContent,
 } from "@mui/material";
 import ThemeSelect from "./ThemeSelect";
 import DashboardCard from "../../baseCard/DashboardCard";
@@ -30,14 +32,22 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import CustomSelect from "../../forms/custom-elements/CustomSelect";
 import CustomFormLabel from "../../forms/custom-elements/CustomFormLabel";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
+import CustomTextField from "../../forms/custom-elements/CustomTextField";
+import axios from "axios";
+import ServiceAdapter from "../../../../lib/service";
+import useHandleModal from "../../../hooks/useHandleModal";
+import DailyExportModal from "../../modal/DailyExportModal";
+import MonthlyExportModal from "../../modal/MonthlyExportModal";
 
 const GuruStudentAttendance = ({ data, kelas }) => {
   const router = useRouter();
-  const { absen } = useAbsenList(data);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [openDaily, setOpenDaily] = React.useState(false);
-  const [value2, setValue2] = React.useState(null);
+  const [openMonthly, setOpenMonthly] = React.useState(false);
+  const [monthlyValue, setMonthlyValue] = React.useState(null);
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,25 +65,6 @@ const GuruStudentAttendance = ({ data, kelas }) => {
       }
       return router.replace(`${router.pathname}`);
     }
-  };
-
-  const downloadDailyAbsen = () => {};
-
-  if (!absen) return <></>;
-
-  const ShowDatePicker = () => {
-    return (
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          open={openDaily}
-          onClose={() => setOpenDaily(false)}
-          value={value2}
-          onChange={(newValue2) => {
-            setValue2(newValue2);
-          }}
-        />
-      </LocalizationProvider>
-    );
   };
 
   return (
@@ -116,30 +107,36 @@ const GuruStudentAttendance = ({ data, kelas }) => {
             />
           </Grid>
           <Grid item>
-            <Box>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => setOpenDaily(true)}
-              >
-                Rekap Bulanan
-              </Button>
-            </Box>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => handleOpenModal("daily")}
+            >
+              Rekap Harian
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => handleOpenModal("monthly")}
+            >
+              Rekap Bulanan
+            </Button>
           </Grid>
         </Grid>
       }
     >
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          open={openDaily}
-          onClose={() => setOpenDaily(false)}
-          value={value2}
-          onChange={(newValue2) => {
-            setValue2(newValue2);
-          }}
-          renderInput={(params) => <></>}
-        />
-      </LocalizationProvider>
+      <DailyExportModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
+      <MonthlyExportModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
       <Box
         sx={{
           overflow: "auto",
@@ -181,7 +178,7 @@ const GuruStudentAttendance = ({ data, kelas }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {absen.data
+            {data.data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((absen) => (
                 <TableRow key={absen.id}>
@@ -228,7 +225,7 @@ const GuruStudentAttendance = ({ data, kelas }) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={absen.data.length}
+          count={data.meta.total}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
