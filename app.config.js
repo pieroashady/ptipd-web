@@ -1,5 +1,5 @@
 const APP_CONFIG = {
-  baseUrl: 'http://absensmkn5-kab.xyz//api',
+  baseUrl: 'http://absensmkn5-kab.xyz/api',
   ironSessionPassword: 'HorsuiKuwXdHYHjYGngYdkSKpyQwtIrC',
   ironSessionCookieName: 'absensi-web',
   imageDomains: ['localhost'],
