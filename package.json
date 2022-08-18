@@ -1,7 +1,6 @@
 {
   "name": "nextjs",
   "version": "5.0.0",
-  "homepage": "http://web.absensmkn5-kab.xyz/",
   "private": true,
   "dependencies": {
     "@emotion/cache": "11.6.0",
@@ -50,8 +49,7 @@
     "redux-devtools-extension": "2.13.7"
   },
   "scripts": {
-    "export": "next export",
-    "dev": "node server.js",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
