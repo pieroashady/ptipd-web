@@ -58,12 +58,6 @@ const Menuitems = [
     href: '/admin/jadwal-mapel',
     role: 'admin',
   },
-  {
-    title: 'Setting Tahun Ajaran',
-    icon: 'settings',
-    href: '/admin/tahun-ajaran',
-    role: 'admin',
-  },
 ];
 
 export default Menuitems;
