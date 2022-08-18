@@ -19,6 +19,7 @@ import moment from 'moment';
 import useHandleModal from '../../../hooks/useHandleModal';
 import AddGuruModal from '../../modal/AddGuruModal';
 import TeacherActionMenu from '../../menu-items/TeacherActionMenu';
+import DeleteGuruModal from '../../modal/DeleteGuruModal';
 
 const TeacherList = ({ data }) => {
   const [page, setPage] = React.useState(0);

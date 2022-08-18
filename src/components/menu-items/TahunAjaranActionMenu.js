@@ -7,10 +7,10 @@ import UpdateAbsenModal from '../modal/UpdateAbsenModal';
 import useHandleModal from '../../hooks/useHandleModal';
 import AddJurusanModal from '../modal/AddJurusanModal';
 import UpdateJurusanModal from '../modal/UpdateJurusanModal';
-import UpdateStudentModal from '../modal/UpdateStudentModal';
-import DeleteSiswaModal from '../modal/DeleteSiswaModal';
+import DeleteJurusanModal from '../modal/DeleteJurusanModal';
+import UpdateTahunAjaranModal from '../modal/UpdateTahunAjaranModal';
 
-const StudentActionMenu = (props) => {
+const TahunAjaranActionMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { openModal, modalType, handleCloseModal, handleOpenModal } =
     useHandleModal(false);
@@ -33,13 +33,7 @@ const StudentActionMenu = (props) => {
     <>
       {openModal && (
         <>
-          <UpdateStudentModal
-            open={openModal}
-            type={modalType}
-            closeModalHandler={handleCloseModal}
-            data={data}
-          />
-          <DeleteSiswaModal
+          <UpdateTahunAjaranModal
             open={openModal}
             type={modalType}
             closeModalHandler={handleCloseModal}
@@ -62,10 +56,9 @@ const StudentActionMenu = (props) => {
         onClose={handleClose}
       >
         <MenuItem onClick={() => handleOpenModal('update')}>Edit</MenuItem>
-        <MenuItem onClick={() => handleOpenModal('delete')}>Hapus</MenuItem>
       </Menu>
     </>
   );
 };
 
-export default StudentActionMenu;
+export default TahunAjaranActionMenu;

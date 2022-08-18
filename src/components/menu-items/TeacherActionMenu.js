@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import FeatherIcon from "feather-icons-react";
-import { Button, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
-import useUpdate from "../../hooks/useUpdateData";
-import UpdateAbsenModal from "../modal/UpdateAbsenModal";
-import useHandleModal from "../../hooks/useHandleModal";
-import AddJurusanModal from "../modal/AddJurusanModal";
-import UpdateJurusanModal from "../modal/UpdateJurusanModal";
-import UpdateStudentModal from "../modal/UpdateStudentModal";
-import UpdateTeacherModal from "../modal/UpdateTeacherModal";
+import FeatherIcon from 'feather-icons-react';
+import { Button, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import useUpdate from '../../hooks/useUpdateData';
+import UpdateAbsenModal from '../modal/UpdateAbsenModal';
+import useHandleModal from '../../hooks/useHandleModal';
+import AddJurusanModal from '../modal/AddJurusanModal';
+import UpdateJurusanModal from '../modal/UpdateJurusanModal';
+import UpdateStudentModal from '../modal/UpdateStudentModal';
+import UpdateTeacherModal from '../modal/UpdateTeacherModal';
+import DeleteGuruModal from '../modal/DeleteGuruModal';
 
 const TeacherActionMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,12 +33,20 @@ const TeacherActionMenu = (props) => {
   return (
     <>
       {openModal && (
-        <UpdateTeacherModal
-          open={openModal}
-          type={modalType}
-          closeModalHandler={handleCloseModal}
-          data={data}
-        />
+        <>
+          <UpdateTeacherModal
+            open={openModal}
+            type={modalType}
+            closeModalHandler={handleCloseModal}
+            data={data}
+          />
+          <DeleteGuruModal
+            open={openModal}
+            type={modalType}
+            closeModalHandler={handleCloseModal}
+            data={data}
+          />
+        </>
       )}
       <IconButton
         aria-haspopup="true"
@@ -53,8 +62,8 @@ const TeacherActionMenu = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => handleOpenModal("update")}>Edit</MenuItem>
-        <MenuItem onClick={() => handleMenuClick(data.id)}>Hapus</MenuItem>
+        <MenuItem onClick={() => handleOpenModal('update')}>Edit</MenuItem>
+        <MenuItem onClick={() => handleOpenModal('delete')}>Hapus</MenuItem>
       </Menu>
     </>
   );
