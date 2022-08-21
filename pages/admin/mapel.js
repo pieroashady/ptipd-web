@@ -1,17 +1,18 @@
 import { Grid } from "@mui/material";
 import { getJurusan } from "../../lib/service/jurusan";
 import { getMapel } from "../../lib/service/mapel";
+import WithAuth from "../../lib/session/withAuth";
 import JurusanList from "../../src/components/dashboard/dashboard2/JurusanList";
 import MapelList from "../../src/components/dashboard/dashboard2/MapelList";
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = WithAuth(async ({ query }) => {
   const mapelData = await getMapel();
   return {
     props: {
       mapelData,
     },
   };
-}
+});
 
 const Mapel = ({ mapelData }) => {
   return (

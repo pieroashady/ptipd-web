@@ -1,15 +1,16 @@
 import { Grid } from "@mui/material";
 import { getKelas } from "../../lib/service/kelas";
+import WithAuth from "../../lib/session/withAuth";
 import ClassList from "../../src/components/dashboard/dashboard2/ClassList";
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = WithAuth(async ({ query }) => {
   const classData = await getKelas();
   return {
     props: {
       classData,
     },
   };
-}
+});
 
 const Kelas = ({ classData }) => {
   return (

@@ -3,8 +3,9 @@ import { isEmpty } from "ramda";
 import moment from "moment";
 import { getAbsenSiswa } from "../../lib/service/absen-siswa";
 import StudentAttendance from "../../src/components/dashboard/dashboard1/StudentAttendance";
+import WithAuth from "../../lib/session/withAuth";
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = WithAuth(async ({ query }) => {
   const today = moment().startOf("day").format("YYYY-MM-DD");
 
   const search = isEmpty(query)
@@ -18,7 +19,7 @@ export async function getServerSideProps({ query }) {
       absen,
     },
   };
-}
+});
 
 const Dashboard1 = ({ absen }) => {
   return (

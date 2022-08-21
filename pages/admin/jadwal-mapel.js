@@ -5,7 +5,7 @@ import { getJurusan } from "../../lib/service/jurusan";
 import JadwalMapelList from "../../src/components/dashboard/dashboard2/JadwalMapelList";
 import JurusanList from "../../src/components/dashboard/dashboard2/JurusanList";
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = withAuth(async ({ query }) => {
   const search = isEmpty(query)
     ? ""
     : `${new URLSearchParams(query).toString()}`;
@@ -16,7 +16,7 @@ export async function getServerSideProps({ query }) {
       jadwalMapelData,
     },
   };
-}
+});
 
 const JadwalMapel = ({ jadwalMapelData }) => {
   return (

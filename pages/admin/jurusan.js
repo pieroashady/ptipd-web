@@ -1,15 +1,16 @@
 import { Grid } from "@mui/material";
 import { getJurusan } from "../../lib/service/jurusan";
+import WithAuth from "../../lib/session/withAuth";
 import JurusanList from "../../src/components/dashboard/dashboard2/JurusanList";
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = WithAuth(async ({ query }) => {
   const jurusanData = await getJurusan();
   return {
     props: {
       jurusanData,
     },
   };
-}
+});
 
 const Jurusan = ({ jurusanData }) => {
   return (

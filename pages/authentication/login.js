@@ -79,6 +79,7 @@ const Login = () => {
                   <Button
                     color="secondary"
                     variant="contained"
+                    disabled={loading}
                     size="large"
                     type="submit"
                     fullWidth
@@ -87,7 +88,7 @@ const Login = () => {
                       pb: "10px",
                     }}
                   >
-                    Login
+                    {loading ? "Logging in..." : "Login"}
                   </Button>
                 </form>
               </Box>

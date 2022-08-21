@@ -1,16 +1,17 @@
 import { Grid } from "@mui/material";
 import moment from "moment";
 import { getTeachers } from "../../lib/service/guru";
+import WithAuth from "../../lib/session/withAuth";
 import TeacherList from "../../src/components/dashboard/dashboard2/TeacherList";
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps = WithAuth(async ({ query }) => {
   const teachersData = await getTeachers();
   return {
     props: {
       teachersData,
     },
   };
-}
+});
 
 const Teacher = ({ teachersData }) => {
   return (

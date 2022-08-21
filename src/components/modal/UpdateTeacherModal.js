@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 import {
   Box,
@@ -13,29 +13,29 @@ import {
   MenuItem,
   Grid,
   Typography,
-} from '@mui/material';
-import FeatherIcon from 'feather-icons-react';
-import PhoneInput from 'react-phone-input-2';
+} from "@mui/material";
+import FeatherIcon from "feather-icons-react";
+import PhoneInput from "react-phone-input-2";
 
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
-import 'react-phone-input-2/lib/material.css';
-import { useSnackbar } from '../../hooks/useSnackbar';
+import "react-phone-input-2/lib/material.css";
+import { useSnackbar } from "../../hooks/useSnackbar";
 
-import CustomFormLabel from '../forms/custom-elements/CustomFormLabel';
-import CustomTextField from '../forms/custom-elements/CustomTextField';
-import Transition from '../transition';
-import useCreateData from '../../hooks/useCreateData';
-import CustomSelect from '../forms/custom-elements/CustomSelect';
-import gender from '../../../lib/constant/gender';
-import { DatePicker, LocalizationProvider } from '@mui/lab';
-import { getKelas } from '../../../lib/service/kelas';
-import { uploadFile } from '../../../lib/service/upload-file';
-import { useRouter } from 'next/dist/client/router';
-import useUpdate from '../../hooks/useUpdateData';
-import moment from 'moment';
+import CustomFormLabel from "../forms/custom-elements/CustomFormLabel";
+import CustomTextField from "../forms/custom-elements/CustomTextField";
+import Transition from "../transition";
+import useCreateData from "../../hooks/useCreateData";
+import CustomSelect from "../forms/custom-elements/CustomSelect";
+import gender from "../../../lib/constant/gender";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import { getKelas } from "../../../lib/service/kelas";
+import { uploadFile } from "../../../lib/service/upload-file";
+import { useRouter } from "next/dist/client/router";
+import useUpdate from "../../hooks/useUpdateData";
+import moment from "moment";
 
-const upTransition = Transition('up');
+const upTransition = Transition("up");
 
 const UpdateTeacherModal = ({
   open = false,
@@ -92,19 +92,19 @@ const UpdateTeacherModal = ({
 
       if (teacherPhoto) {
         const uploadPhoto = await uploadFile(teacherPhoto);
-        body.foto_guru = uploadPhoto.url;
+        body.foto = uploadPhoto.url;
       }
 
-      await handleUpdate('/guru', data.id, body);
+      await handleUpdate("/guru", data.id, body);
       setLoading(false);
-      alert('Berhasil edit data guru');
+      alert("Berhasil edit data guru");
       closeModalHandler();
       router.replace(router.pathname);
       return;
     } catch (error) {
       console.log(error);
       setLoading(false);
-      openSnackBar('Gagal edit data guru');
+      openSnackBar("Gagal edit data guru");
       return;
     }
   };
@@ -119,7 +119,7 @@ const UpdateTeacherModal = ({
         autoHideDuration={5000}
       />
       <Dialog
-        open={open & (type === 'update')}
+        open={open & (type === "update")}
         TransitionComponent={upTransition}
         onClose={closeModalHandler}
         fullWidth
@@ -157,7 +157,7 @@ const UpdateTeacherModal = ({
                     />
                   </Button>
                 </Grid>
-                <Box sx={{ flex: '1 1 auto' }} />
+                <Box sx={{ flex: "1 1 auto" }} />
                 <Grid item display="flex" alignItems="center">
                   {teacherPhoto && <Typography>{teacherPhoto.name}</Typography>}
                 </Grid>
@@ -232,7 +232,7 @@ const UpdateTeacherModal = ({
                   required
                   value={tglLahir}
                   onChange={(value) => {
-                    const convertDate = moment(value).format('YYYY-MM-DD');
+                    const convertDate = moment(value).format("YYYY-MM-DD");
                     console.log(convertDate);
                     setTglLahir(convertDate);
                   }}
@@ -243,12 +243,12 @@ const UpdateTeacherModal = ({
                       fullWidth
                       id="date"
                       sx={{
-                        '& .MuiSvgIcon-root': {
-                          width: '18px',
-                          height: '18px',
+                        "& .MuiSvgIcon-root": {
+                          width: "18px",
+                          height: "18px",
                         },
-                        '& .MuiFormHelperText-root': {
-                          display: 'none',
+                        "& .MuiFormHelperText-root": {
+                          display: "none",
                         },
                         mb: 1,
                       }}
@@ -281,7 +281,7 @@ const UpdateTeacherModal = ({
               disabled={loading}
               type="submit"
             >
-              {loading ? 'Submitting...' : 'Edit'}
+              {loading ? "Submitting..." : "Edit"}
             </Button>
             <Button onClick={closeModalHandler} color="secondary">
               Batal
