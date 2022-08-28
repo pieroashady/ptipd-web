@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import React from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 import {
   Typography,
@@ -20,24 +20,24 @@ import {
   Button,
   Dialog,
   DialogContent,
-} from '@mui/material';
-import ThemeSelect from './ThemeSelect';
-import DashboardCard from '../../baseCard/DashboardCard';
+} from "@mui/material";
+import ThemeSelect from "./ThemeSelect";
+import DashboardCard from "../../baseCard/DashboardCard";
 
-import ThreeDotsMenu from '../../menu-items/ThreeDotsMenu';
-import SeachDataForm from '../../forms/SearchDataForm';
-import moment from 'moment';
-import useAbsenList from '../../../hooks/useAbsenList';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import CustomSelect from '../../forms/custom-elements/CustomSelect';
-import CustomFormLabel from '../../forms/custom-elements/CustomFormLabel';
-import { DatePicker, LocalizationProvider } from '@mui/lab';
-import CustomTextField from '../../forms/custom-elements/CustomTextField';
-import axios from 'axios';
-import ServiceAdapter from '../../../../lib/service';
-import useHandleModal from '../../../hooks/useHandleModal';
-import DailyExportModal from '../../modal/DailyExportModal';
-import MonthlyExportModal from '../../modal/MonthlyExportModal';
+import ThreeDotsMenu from "../../menu-items/ThreeDotsMenu";
+import SeachDataForm from "../../forms/SearchDataForm";
+import moment from "moment";
+import useAbsenList from "../../../hooks/useAbsenList";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import CustomSelect from "../../forms/custom-elements/CustomSelect";
+import CustomFormLabel from "../../forms/custom-elements/CustomFormLabel";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import CustomTextField from "../../forms/custom-elements/CustomTextField";
+import axios from "axios";
+import ServiceAdapter from "../../../../lib/service";
+import useHandleModal from "../../../hooks/useHandleModal";
+import DailyExportModal from "../../modal/DailyExportModal";
+import MonthlyExportModal from "../../modal/MonthlyExportModal";
 
 const GuruStudentAttendance = ({ data, kelas }) => {
   const router = useRouter();
@@ -46,7 +46,8 @@ const GuruStudentAttendance = ({ data, kelas }) => {
   const [openDaily, setOpenDaily] = React.useState(false);
   const [openMonthly, setOpenMonthly] = React.useState(false);
   const [monthlyValue, setMonthlyValue] = React.useState(null);
-  const { openModal, modalType, handleCloseModal, handleOpenModal } = useHandleModal(false);
+  const { openModal, modalType, handleCloseModal, handleOpenModal } =
+    useHandleModal(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -58,7 +59,7 @@ const GuruStudentAttendance = ({ data, kelas }) => {
   };
 
   const keyPress = (e) => {
-    if (e.key == 'Enter') {
+    if (e.key == "Enter") {
       if (e.target.value) {
         return router.replace(`${router.pathname}?q=${e.target.value}`);
       }
@@ -66,7 +67,8 @@ const GuruStudentAttendance = ({ data, kelas }) => {
     }
   };
 
-  const handleMapelChange = (e) => router.replace(`${router.pathname}?id=${e.target.value}`);
+  const handleMapelChange = (e) =>
+    router.replace(`${router.pathname}?id=${e.target.value}`);
 
   return (
     <DashboardCard
@@ -80,7 +82,7 @@ const GuruStudentAttendance = ({ data, kelas }) => {
             <CustomFormLabel>Pilih Mata Pelajaran</CustomFormLabel>
             <CustomSelect
               InputLabelProps={{
-                style: { color: 'black' },
+                style: { color: "black" },
               }}
               required
               defaultValue={router.query.id}
@@ -94,7 +96,8 @@ const GuruStudentAttendance = ({ data, kelas }) => {
               {kelas &&
                 kelas.data.map((option, index) => (
                   <MenuItem key={`kelas${option.id}`} value={option.id}>
-                    {option.kelas.nama_kelas} - {option.mata_pelajaran.nama_mapel}
+                    {option.kelas.nama_kelas} -{" "}
+                    {option.mata_pelajaran.nama_mapel}
                   </MenuItem>
                 ))}
             </CustomSelect>
@@ -102,19 +105,30 @@ const GuruStudentAttendance = ({ data, kelas }) => {
 
           <Grid item lg={6}>
             <CustomFormLabel>Cari</CustomFormLabel>
-            <SeachDataForm placeholder="NIS atau nama siswa" onKeyPress={keyPress} />
+            <SeachDataForm
+              placeholder="NIS atau nama siswa"
+              onKeyPress={keyPress}
+            />
           </Grid>
 
           <Grid item lg={6}>
             <CustomFormLabel>Rekap</CustomFormLabel>
             <Grid container spacing={2}>
               <Grid item>
-                <Button color="primary" variant="contained" onClick={() => handleOpenModal('daily')}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => handleOpenModal("daily")}
+                >
                   Rekap Harian
                 </Button>
               </Grid>
               <Grid item>
-                <Button color="primary" variant="contained" onClick={() => handleOpenModal('monthly')}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => handleOpenModal("monthly")}
+                >
                   Rekap Bulanan
                 </Button>
               </Grid>
@@ -143,18 +157,26 @@ const GuruStudentAttendance = ({ data, kelas }) => {
         </Grid>
       }
     >
-      <DailyExportModal open={openModal} type={modalType} closeModalHandler={handleCloseModal} />
-      <MonthlyExportModal open={openModal} type={modalType} closeModalHandler={handleCloseModal} />
+      <DailyExportModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
+      <MonthlyExportModal
+        open={openModal}
+        type={modalType}
+        closeModalHandler={handleCloseModal}
+      />
       <Box
         sx={{
-          overflow: 'auto',
+          overflow: "auto",
           mt: -1,
         }}
       >
         <Table
           aria-label="simple table"
           sx={{
-            whiteSpace: 'nowrap',
+            whiteSpace: "nowrap",
           }}
         >
           <TableHead>
@@ -175,9 +197,6 @@ const GuruStudentAttendance = ({ data, kelas }) => {
                 <Typography variant="h5">Jam Masuk</Typography>
               </TableCell>
               <TableCell>
-                <Typography variant="h5">Jam Keluar</Typography>
-              </TableCell>
-              <TableCell>
                 <Typography variant="h5">Status</Typography>
               </TableCell>
               <TableCell align="center">
@@ -186,44 +205,43 @@ const GuruStudentAttendance = ({ data, kelas }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((absen) => (
-              <TableRow key={absen.id}>
-                <TableCell>
-                  <Typography variant="h6" fontWeight="600">
-                    {absen.siswa.nis}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="h6">{absen.siswa.nama_siswa}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{absen.siswa.kelas.nama_kelas}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {moment(absen.tanggal).format('DD-MM-YYYY')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {absen.jam_masuk}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {absen.jam_keluar || '-'}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="h6">
-                    {absen.keterangan || 'Hadir'}
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <ThreeDotsMenu data={absen} />
-                </TableCell>
-              </TableRow>
-            ))}
+            {data.data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((absen) => (
+                <TableRow key={absen.id}>
+                  <TableCell>
+                    <Typography variant="h6" fontWeight="600">
+                      {absen.siswa.nis}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="h6">
+                      {absen.siswa.nama_siswa}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography>{absen.siswa.kelas.nama_kelas}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {moment(absen.tanggal).format("DD-MM-YYYY")}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {absen.jam_masuk}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color="textSecondary" variant="h6">
+                      {absen.keterangan || "Hadir"}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <ThreeDotsMenu data={absen} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <TablePagination
@@ -235,7 +253,9 @@ const GuruStudentAttendance = ({ data, kelas }) => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           labelDisplayedRows={({ from, to, count }) => {
-            return `Menampilkan ${from}-${to} dari ${count !== -1 ? count : `more than ${to}`} data`;
+            return `Menampilkan ${from}-${to} dari ${
+              count !== -1 ? count : `more than ${to}`
+            } data`;
           }}
           labelRowsPerPage="Data per halaman"
         />
