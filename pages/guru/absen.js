@@ -9,42 +9,67 @@ import { getJadwalMapel, getJadwalMapelById } from '../../lib/service/jadwal-map
 import withGuruAuth from '../../lib/session/withGuruAuth';
 import QRCodeCard from '../../src/components/dashboard/dashboard1/QRCodeCard';
 import { getQrCode } from '../../lib/service/qr-code';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export const getServerSideProps = withGuruAuth(async ({ req, query }) => {
-  let jadwalMapel = null;
-
-  if (query.id) {
-    try {
-      jadwalMapel = query.id ? await getJadwalMapelById(query.id) : null;
-    } catch (error) {
-      return {
-        notFound: true,
-      };
-    }
-  }
-
-  const today = moment().startOf('day').format('YYYY-MM-DD');
-
-  const search = !jadwalMapel
-    ? `tanggal=${today}`
-    : `tanggal=${today}&kelas_id=${jadwalMapel.data.kelas_id}&mata_pelajaran_id=${jadwalMapel.data.mata_pelajaran_id}`;
-
-  const absen = await getAbsenSiswa(`${search}`);
-  const kelasData = await getJadwalMapel(`guru_id=${req.session.user.guru_id}`);
-  const qrCode = query.id
-    ? await getQrCode({ mata_pelajaran_id: jadwalMapel.data.mata_pelajaran_id, kelas_id: jadwalMapel.data.kelas_id })
-    : null;
-
   return {
     props: {
-      absen,
-      kelasData,
-      qrCode,
+      session: req.session,
     },
   };
 });
 
-const DashboardGuru = ({ absen, kelasData, qrCode }) => {
+const DashboardGuru = ({ session }) => {
+  const router = useRouter();
+  const [absen, setAbsen] = useState();
+  const [kelasData, setKelasData] = useState();
+  const [qrCode, setQrCode] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+
+    const handler = async () => {
+      let jadwalMapel = null;
+
+      if (router.query?.id) {
+        try {
+          jadwalMapel = router.query.id ? await getJadwalMapelById(router.query.id) : null;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      const today = moment().startOf('day').format('YYYY-MM-DD');
+
+      const search = jadwalMapel
+        ? `tanggal=${today}&kelas_id=${jadwalMapel.data.kelas_id}&mata_pelajaran_id=${jadwalMapel.data.mata_pelajaran_id}`
+        : '';
+
+      const absen = jadwalMapel ? await getAbsenSiswa(`${search}`) : { data: [] };
+      const kelasData = await getJadwalMapel(`guru_id=${session.user.guru_id}`);
+      const qrCode = router.query.id
+        ? await getQrCode({
+            mata_pelajaran_id: jadwalMapel.data.mata_pelajaran_id,
+            kelas_id: jadwalMapel.data.kelas_id,
+          })
+        : null;
+
+      setAbsen(absen);
+      setKelasData(kelasData);
+      setQrCode(qrCode);
+
+      setLoading(false);
+    };
+
+    handler();
+  }, [router, session.user.guru_id]);
+
+  console.log(loading);
+
+  if (loading) return <>Loading...</>;
+
   return (
     <Grid container spacing={0}>
       {qrCode && (
