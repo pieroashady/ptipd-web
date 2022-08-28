@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Axios from "axios";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Axios from 'axios';
 
 const useLogin = () => {
   const router = useRouter();
@@ -29,15 +29,16 @@ const useLogin = () => {
     };
 
     try {
-      const { data: response } = await Axios.post("/api/login", data);
-      if (response.data.role === "guru") {
-        await router.replace("/guru/absen");
+      const { data: response } = await Axios.post('/api/login', data);
+      if (response.data.role === 'guru') {
+        await router.replace('/guru/absen');
         return;
       }
-      router.replace("/home");
+      router.replace('/home');
     } catch (error) {
       handleLoading(false);
-      alert(error.response.data.message);
+      const msg = error.response?.data?.message ?? 'Maaf terjadi kesalahan pada server';
+      alert(msg);
       return;
     }
   };
