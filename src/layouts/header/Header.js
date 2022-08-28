@@ -1,13 +1,6 @@
 import React from 'react';
 import FeatherIcon from 'feather-icons-react';
-import {
-  AppBar,
-  Box,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 // Dropdown Component
 import SearchDD from './SearchDD';
@@ -15,14 +8,7 @@ import ProfileDD from './ProfileDD';
 import ClockTicker from '../../components/clock';
 import LogoutButton from '../../components/logout/logout-button';
 
-const Header = ({
-  sx,
-  customClass,
-  toggleSidebar,
-  toggleMobileSidebar,
-  position,
-  showSidebar,
-}) => {
+const Header = ({ sx, customClass, toggleSidebar, toggleMobileSidebar, position, showSidebar }) => {
   return (
     <AppBar sx={sx} position={position} elevation={0} className={customClass}>
       <Toolbar>
@@ -61,7 +47,7 @@ const Header = ({
           </>
         )}
         {showSidebar && (
-          <Typography color={'black'} fontSize={27}>
+          <Typography color={'black'} fontSize={24}>
             SISTEM INFORMASI DAN ABSENSI SISWA
           </Typography>
         )}

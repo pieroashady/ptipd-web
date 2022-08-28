@@ -17,15 +17,13 @@ function useAbsenList(data) {
       const { query } = routerRef.current;
 
       const today = moment().startOf('day').format('YYYY-MM-DD');
-      const search = isEmpty(query)
-        ? `tanggal=${today}`
-        : `tanggal=${today}&${new URLSearchParams(query).toString()}`;
+      const search = isEmpty(query) ? `tanggal=${today}` : `tanggal=${today}&${new URLSearchParams(query).toString()}`;
 
       const response = await getAbsenSiswa(search);
       setAbsen(response);
     }
     getAbsen();
-  }, 5000);
+  }, 10000);
 
   return {
     absen,
